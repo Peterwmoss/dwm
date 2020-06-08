@@ -59,13 +59,10 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *roficmd[] = { "rofi", "-show", "drun", NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *volupcmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
-static const char *voldowncmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
-static const char *mutecmd[] = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
-static const char *brightupcmd[] = { "xbacklight", "-inc", "10", NULL };
-static const char *brightdowncmd[] = { "xbacklight", "-dec", "10", NULL };
+static const char *termcmd[]  = { "alacritty", NULL };
 static const char *sysmenu[] = { "/home/peter/.scripts/sysmenu", NULL };
+static const char *incvol[] = { "/home/peter/.scripts/voladj", "i", NULL };
+static const char *decvol[] = { "/home/peter/.scripts/voladj", "d", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -97,13 +94,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_z,	   setgaps,        {.i = -5 } },
 	{ MODKEY,                       XK_x,      setgaps,        {.i = +5 } },
+	{ MODKEY,                       XK_u,	   spawn,          {.v = incvol } },
+	{ MODKEY,                       XK_y,	   spawn,          {.v = decvol } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
-	{ MODKEY,						XK_F10,    spawn,          {.v = mutecmd  } },
-	{ MODKEY,						XK_F11,    spawn,          {.v = voldowncmd  } },
-	{ MODKEY,						XK_F12,    spawn,          {.v = volupcmd  } },
-	{ MODKEY,						XK_F5,     spawn,          {.v = brightdowncmd  } },
-	{ MODKEY,						XK_F6,     spawn,          {.v = brightupcmd  } },
-	{ MODKEY|ShiftMask,             XK_F5,     xrdb,           {.v = NULL } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
