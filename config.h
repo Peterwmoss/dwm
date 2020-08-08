@@ -63,7 +63,7 @@ static const Layout layouts[] = {
   }
 
 /* commands */
-static const char *roficmd[] = {"rofi", "-show", "drun", NULL};
+static const char *roficmd[] = {"/home/peter/.scripts/rofi-start", NULL};
 static const char *termcmd[] = {"alacritty", NULL};
 static const char *sysmenu[] = {"/home/peter/.scripts/sysmenu", NULL};
 static const char *incvol[] = {"/home/peter/.scripts/voladj", "i", NULL};
@@ -71,8 +71,8 @@ static const char *decvol[] = {"/home/peter/.scripts/voladj", "d", NULL};
 static const char *mutvol[] = {"/home/peter/.scripts/voladj", "m", NULL};
 static const char *lockcmd[] = {
     "i3lock", "-i", "/home/peter/Pictures/WP/black_lotus.png", NULL};
-static const char *brightupcmd[] = {"xbacklight", "-inc", "1", NULL};
-static const char *brightdowncmd[] = {"xbacklight", "-dec", "1", NULL};
+static const char *brightupcmd[] = {"xbacklight", "-inc", "5", NULL};
+static const char *brightdowncmd[] = {"xbacklight", "-dec", "5", NULL};
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
