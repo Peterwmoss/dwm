@@ -68,6 +68,11 @@ static const char *termcmd[] = {"alacritty", NULL};
 static const char *sysmenu[] = {"/home/peter/.scripts/sysmenu", NULL};
 static const char *incvol[] = {"/home/peter/.scripts/voladj", "i", NULL};
 static const char *decvol[] = {"/home/peter/.scripts/voladj", "d", NULL};
+static const char *mutvol[] = {"/home/peter/.scripts/voladj", "m", NULL};
+static const char *lockcmd[] = {
+    "i3lock", "-i", "/home/peter/Pictures/WP/black_lotus.png", NULL};
+static const char *brightupcmd[] = {"xbacklight", "-inc", "1", NULL};
+static const char *brightdowncmd[] = {"xbacklight", "-dec", "1", NULL};
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
@@ -75,8 +80,11 @@ static Key keys[] = {
     {MODKEY, XK_p, spawn, {.v = sysmenu}},
     {MODKEY, XK_s, spawn, SHCMD("sleep 0.2; scrot -s -e 'mv $f ~/pictures/'")},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
-    {MODKEY, XK_u, spawn, {.v = incvol}},
-    {MODKEY, XK_y, spawn, {.v = decvol}},
+    {MODKEY, XK_F12, spawn, {.v = incvol}},
+    {MODKEY, XK_F11, spawn, {.v = decvol}},
+    {MODKEY, XK_F10, spawn, {.v = mutvol}},
+    {MODKEY, XK_F5, spawn, {.v = brightdowncmd}},
+    {MODKEY, XK_F6, spawn, {.v = brightupcmd}},
     {MODKEY, XK_j, focusstack, {.i = +1}},
     {MODKEY, XK_k, focusstack, {.i = -1}},
     {MODKEY | ShiftMask, XK_i, incnmaster, {.i = +1}},
