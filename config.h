@@ -75,8 +75,10 @@ static const char *decvol[] = {"/home/peter/.scripts/voladj", "d", NULL};
 static const char *mutvol[] = {"/home/peter/.scripts/voladj", "m", NULL};
 static const char *lockcmd[] = {
     "i3lock", "-i", "/home/peter/Pictures/WP/black_lotus.png", NULL};
-static const char *brightupcmd[] = {"xbacklight", "-inc", "5", NULL};
-static const char *brightdowncmd[] = {"xbacklight", "-dec", "5", NULL};
+static const char *brightupcmd[] = {"/home/peter/git/dotfiles/inc-backlight",
+                                    NULL};
+static const char *brightdowncmd[] = {"/home/peter/git/dotfiles/dec-backlight",
+                                      NULL};
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
