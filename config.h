@@ -33,6 +33,7 @@ static const Rule rules[] = {
     {"TeamSpeak 3", NULL, NULL, 0, 1, 2},
     {"KeePassXC", NULL, NULL, 0, 1, -1},
     {"Org.gnome.Nautilus", NULL, NULL, 0, 1, -1},
+    {"Pavucontrol", NULL, NULL, 0, 1, -1},
 };
 
 /* layout(s) */
