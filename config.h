@@ -15,12 +15,6 @@ static char color4[] = "#444444";
 static char color5[] = "#555555";
 static char color6[] = "#666666";
 static char color7[] = "#FFFFFF"; // Foreground
-static char normbgcolor[] = "#bbbbbb";
-static char normbordercolor[] = "#bbbbbb";
-static char normfgcolor[] = "#bbbbbb";
-static char selfgcolor[] = "#eeeeee";
-static char selbordercolor[] = "#005577";
-static char selbgcolor[] = "#005577";
 static char *colors[][3] = {
     /*               fg           bg           border   */
     [SchemeNorm] = {color7, color0, color0},
