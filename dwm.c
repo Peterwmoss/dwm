@@ -85,7 +85,11 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel };                  /* color schemes */
+enum {
+  SchemeNorm,
+  SchemeSel,
+  SchemeStatus,
+}; /* color schemes */
 enum {
   NetSupported,
   NetWMName,
@@ -229,6 +233,7 @@ static void keypress(XEvent *e);
 static void killclient(const Arg *arg);
 static void loadxrdb(void);
 static void manage(Window w, XWindowAttributes *wa);
+static void enternotify(XEvent *e);
 static void mappingnotify(XEvent *e);
 static void maprequest(XEvent *e);
 static void monocle(Monitor *m);
@@ -303,6 +308,7 @@ static void (*handler[LASTEvent])(XEvent *) = {
     [ConfigureRequest] = configurerequest,
     [ConfigureNotify] = configurenotify,
     [DestroyNotify] = destroynotify,
+    [EnterNotify] = enternotify,
     [Expose] = expose,
     [FocusIn] = focusin,
     [KeyPress] = keypress,
@@ -728,7 +734,7 @@ void drawbar(Monitor *m) {
   Client *c;
 
   /* draw status first so it can be overdrawn by tags later */
-  drw_setscheme(drw, scheme[SchemeNorm]);
+  drw_setscheme(drw, scheme[SchemeStatus]);
   tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
   drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0);
 
@@ -1022,12 +1028,14 @@ void loadxrdb() {
       xrdb = XrmGetStringDatabase(resm);
 
       if (xrdb != NULL) {
-        XRDB_LOAD_COLOR("dwm.color0", normbordercolor);
-        XRDB_LOAD_COLOR("dwm.color0", normbgcolor);
-        XRDB_LOAD_COLOR("dwm.color7", normfgcolor);
-        XRDB_LOAD_COLOR("dwm.color3", selbordercolor);
-        XRDB_LOAD_COLOR("dwm.color3", selbgcolor);
-        XRDB_LOAD_COLOR("dwm.color7", selfgcolor);
+        XRDB_LOAD_COLOR("dwm.color0", color0);
+        XRDB_LOAD_COLOR("dwm.color1", color1);
+        XRDB_LOAD_COLOR("dwm.color2", color2);
+        XRDB_LOAD_COLOR("dwm.color3", color3);
+        XRDB_LOAD_COLOR("dwm.color4", color4);
+        XRDB_LOAD_COLOR("dwm.color5", color5);
+        XRDB_LOAD_COLOR("dwm.color6", color6);
+        XRDB_LOAD_COLOR("dwm.color7", color7);
       }
     }
   }
