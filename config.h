@@ -7,16 +7,25 @@ static const unsigned int snap = 32;    /* snap pixel */
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
 static const char *fonts[] = {"Hack Nerd Font Mono:size=11"};
-static char normbgcolor[] = "#222222";
-static char normbordercolor[] = "#444444";
+static char color0[] = "#000000"; // Background
+static char color1[] = "#111111";
+static char color2[] = "#222222";
+static char color3[] = "#333333";
+static char color4[] = "#444444";
+static char color5[] = "#555555";
+static char color6[] = "#666666";
+static char color7[] = "#FFFFFF"; // Foreground
+static char normbgcolor[] = "#bbbbbb";
+static char normbordercolor[] = "#bbbbbb";
 static char normfgcolor[] = "#bbbbbb";
 static char selfgcolor[] = "#eeeeee";
 static char selbordercolor[] = "#005577";
 static char selbgcolor[] = "#005577";
 static char *colors[][3] = {
     /*               fg           bg           border   */
-    [SchemeNorm] = {normfgcolor, normbgcolor, normbordercolor},
-    [SchemeSel] = {selfgcolor, selbgcolor, selbordercolor},
+    [SchemeNorm] = {color7, color0, color0},
+    [SchemeSel] = {color7, color3, color7},
+    [SchemeStatus] = {color7, color3, color0},
 };
 
 /* tagging */
