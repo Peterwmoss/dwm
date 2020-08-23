@@ -74,7 +74,7 @@ static const char *incvol[] = {"/home/peter/.scripts/voladj", "i", NULL};
 static const char *decvol[] = {"/home/peter/.scripts/voladj", "d", NULL};
 static const char *mutvol[] = {"/home/peter/.scripts/voladj", "m", NULL};
 static const char *lockcmd[] = {
-    "i3lock", "-i", "/home/peter/Pictures/WP/black_lotus.png", NULL};
+    "i3lock -i /home/peter/Pictures/WP/black_lotus.png", NULL};
 static const char *brightupcmd[] = {"/home/peter/git/dotfiles/inc-backlight",
                                     NULL};
 static const char *brightdowncmd[] = {"/home/peter/git/dotfiles/dec-backlight",
@@ -84,7 +84,7 @@ static Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY, XK_d, spawn, {.v = roficmd}},
     {MODKEY, XK_p, spawn, {.v = sysmenu}},
-    {MODKEY, XK_s, spawn, SHCMD("sleep 0.2; scrot -s -e 'mv $f ~/pictures/'")},
+    {MODKEY, XK_s, spawn, SHCMD("sleep 0.2; /home/peter/.scripts/ss")},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, XK_F12, spawn, {.v = incvol}},
     {MODKEY, XK_F11, spawn, {.v = decvol}},
