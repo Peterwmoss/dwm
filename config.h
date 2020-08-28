@@ -83,7 +83,7 @@ static Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY, XK_d, spawn, {.v = roficmd}},
     {MODKEY, XK_p, spawn, {.v = sysmenu}},
-    {MODKEY, XK_s, spawn, SHCMD("sleep 0.2; scrot -s -e 'mv $f ~/pictures/'")},
+    {MODKEY, XK_s, spawn, SHCMD("sleep 0.2; /home/peter/.scripts/ss")},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, XK_u, spawn, {.v = incvol}},
     {MODKEY, XK_y, spawn, {.v = decvol}},
