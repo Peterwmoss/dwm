@@ -69,6 +69,7 @@ static const Layout layouts[] = {
 /* commands */
 static const char *roficmd[] = {"dmenu_run", NULL};
 static const char *termcmd[] = {"alacritty", NULL};
+static const char *rangercmd[] = {"alacritty -e ranger", NULL};
 static const char *sysmenu[] = {"/home/peter/.scripts/sysmenu", NULL};
 static const char *incvol[] = {"/home/peter/.scripts/voladj", "i", NULL};
 static const char *decvol[] = {"/home/peter/.scripts/voladj", "d", NULL};
@@ -79,6 +80,7 @@ static Key keys[] = {
     {MODKEY, XK_p, spawn, {.v = sysmenu}},
     {MODKEY, XK_s, spawn, SHCMD("sleep 0.2; /home/peter/.scripts/ss")},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
+    {MODKEY, XK_r, spawn, {.v = rangercmd}},
     {MODKEY, XK_u, spawn, {.v = incvol}},
     {MODKEY, XK_y, spawn, {.v = decvol}},
     {MODKEY, XK_j, focusstack, {.i = +1}},
