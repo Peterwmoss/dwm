@@ -6,7 +6,7 @@ static const unsigned int gappx = 6;    /* gaps between windows */
 static const unsigned int snap = 32;    /* snap pixel */
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
-static const char *fonts[] = {"Hack Nerd Font Mono:size=11"};
+static const char *fonts[] = {"Hack Nerd Font Mono:size=10"};
 static char color0[] = "#000000"; // Background
 static char color1[] = "#111111";
 static char color2[] = "#222222";
@@ -35,7 +35,6 @@ static const Rule rules[] = {
     {"Gimp", NULL, NULL, 0, 1, -1},
     {"TeamSpeak 3", NULL, NULL, 0, 1, 2},
     {"KeePassXC", NULL, NULL, 0, 1, -1},
-    {"Org.gnome.Nautilus", NULL, NULL, 0, 1, -1},
     {"Pavucontrol", NULL, NULL, 0, 1, -1},
 };
 
@@ -67,26 +66,35 @@ static const Layout layouts[] = {
   }
 
 /* commands */
-static const char *roficmd[] = {"dmenu_run", NULL};
+static const char *runcmd[] = {"dmenu_run", NULL};
+static const char *spotifycmd[] = {"alacritty", "-e", "spt", NULL};
 static const char *termcmd[] = {"alacritty", NULL};
-static const char *rangercmd[] = {"alacritty -e ranger", NULL};
+static const char *rangercmd[] = {"alacritty", "-e", "ranger", NULL};
 static const char *sysmenu[] = {"/home/peter/.scripts/sysmenu", NULL};
-static const char *incvol[] = {"/home/peter/.scripts/voladj", "i", NULL};
-static const char *decvol[] = {"/home/peter/.scripts/voladj", "d", NULL};
+
+/* Volume */
+static const char *incvol[] = {"/home/peter/.scripts/voladj", "up", NULL};
+static const char *decvol[] = {"/home/peter/.scripts/voladj", "down", NULL};
+static const char *mutevol[] = {"/home/peter/.scripts/voladj", "mute", NULL};
+static const char *togglevol[] = {"/home/peter/.scripts/voladj", "toggle",
+                                  NULL};
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
-    {MODKEY, XK_d, spawn, {.v = roficmd}},
+    {MODKEY, XK_d, spawn, {.v = runcmd}},
     {MODKEY, XK_p, spawn, {.v = sysmenu}},
     {MODKEY, XK_s, spawn, SHCMD("sleep 0.2; /home/peter/.scripts/ss")},
+    {MODKEY | ShiftMask, XK_s, spawn, {.v = spotifycmd}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, XK_r, spawn, {.v = rangercmd}},
     {MODKEY, XK_u, spawn, {.v = incvol}},
-    {MODKEY, XK_y, spawn, {.v = decvol}},
+    {MODKEY | ShiftMask, XK_u, spawn, {.v = decvol}},
+    {MODKEY, XK_y, spawn, {.v = togglevol}},
+    {MODKEY | ShiftMask, XK_y, spawn, {.v = mutevol}},
     {MODKEY, XK_j, focusstack, {.i = +1}},
     {MODKEY, XK_k, focusstack, {.i = -1}},
-    {MODKEY | ShiftMask, XK_i, incnmaster, {.i = +1}},
-    {MODKEY | ShiftMask, XK_d, incnmaster, {.i = -1}},
+    {MODKEY, XK_i, incnmaster, {.i = +1}},
+    {MODKEY | ShiftMask, XK_i, incnmaster, {.i = -1}},
     {MODKEY, XK_h, setmfact, {.f = -0.05}},
     {MODKEY, XK_l, setmfact, {.f = +0.05}},
     {MODKEY | ShiftMask, XK_Return, zoom, {0}},
@@ -108,10 +116,10 @@ static Key keys[] = {
     {MODKEY, XK_z, setgaps, {.i = -5}},
     {MODKEY, XK_x, setgaps, {.i = +5}},
     {MODKEY | ShiftMask, XK_equal, setgaps, {.i = 0}},
+    {MODKEY | ShiftMask, XK_e, quit, {0}},
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
         TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
-            TAGKEYS(XK_9, 8){MODKEY | ShiftMask, XK_e, quit, {0}},
-};
+            TAGKEYS(XK_9, 8)};
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
