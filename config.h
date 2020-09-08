@@ -70,8 +70,8 @@ static const Layout layouts[] = {
 static const char *roficmd[] = {"dmenu_run", NULL};
 static const char *termcmd[] = {"alacritty", NULL};
 static const char *sysmenu[] = {"/home/peter/.scripts/sysmenu", NULL};
-static const char *incvol[] = {"/home/peter/.scripts/voladj", "i", NULL};
-static const char *decvol[] = {"/home/peter/.scripts/voladj", "d", NULL};
+static const char *incvol[] = {"/home/peter/.scripts/voladj", "up", NULL};
+static const char *decvol[] = {"/home/peter/.scripts/voladj", "down", NULL};
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
