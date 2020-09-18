@@ -33,7 +33,7 @@ static const Rule rules[] = {
     /* class            instance    title       tags mask     isfloating
        monitor */
     {"Gimp", NULL, NULL, 0, 1, -1},
-    {"TeamSpeak 3", NULL, NULL, 0, 1, 2},
+    {"TeamSpeak 3", NULL, NULL, 0, 1, 1},
     {"KeePassXC", NULL, NULL, 0, 1, -1},
     {"Pavucontrol", NULL, NULL, 0, 1, -1},
 };
@@ -90,7 +90,9 @@ static Key keys[] = {
     {MODKEY, XK_d, spawn, {.v = runcmd}},
     {MODKEY, XK_p, spawn, {.v = sysmenu}},
     {MODKEY, XK_s, spawn, SHCMD("sleep 0.2; /home/peter/.scripts/ss")},
-    {MODKEY | ShiftMask, XK_s, spawn, {.v = spotifycmd}},
+    {MODKEY | ShiftMask, XK_s, spawn,
+     SHCMD("sleep 0.2; scrot -s -e 'mv $f ~/pictures'")},
+    {MODKEY | ControlMask, XK_s, spawn, {.v = spotifycmd}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, XK_b, spawn, {.v = brupcmd}},
     {MODKEY | ShiftMask, XK_b, spawn, {.v = brdowncmd}},
