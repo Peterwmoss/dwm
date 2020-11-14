@@ -65,22 +65,25 @@ static const Layout layouts[] = {
   }
 
 /* commands */
-static const char *runcmd[] = {"dmenu_run"};
-static const char *seachcmd[] = {"/home/peter/.scripts/search"};
-static const char *spotifycmd[] = {"alacritty", "-e", "spt"};
-static const char *termcmd[] = {"alacritty"};
-static const char *rangercmd[] = {"alacritty", "-e", "ranger"};
-static const char *sysmenu[] = {"/home/peter/.scripts/sysmenu"};
+static const char *runcmd[] = {"dmenu_run", NULL};
+static const char *seachcmd[] = {"/home/peter/.scripts/search", NULL};
+static const char *spotifycmd[] = {"alacritty", "-e", "spt", NULL};
+static const char *termcmd[] = {"alacritty", NULL};
+static const char *rangercmd[] = {"alacritty", "-e", "ranger", NULL};
+static const char *sysmenu[] = {"/home/peter/.scripts/sysmenu", NULL};
 
 /* Brightness */
-static const char *brupcmd[] = {"/home/peter/.scripts/backlightadj", "up"};
-static const char *brdowncmd[] = {"/home/peter/.scripts/backlightadj", "down"};
+static const char *brupcmd[] = {"/home/peter/.scripts/backlightadj", "up",
+                                NULL};
+static const char *brdowncmd[] = {"/home/peter/.scripts/backlightadj", "down",
+                                  NULL};
 
 /* Volume */
-static const char *incvol[] = {"/home/peter/.scripts/voladj", "up"};
-static const char *decvol[] = {"/home/peter/.scripts/voladj", "down"};
-static const char *mutevol[] = {"/home/peter/.scripts/voladj", "mute"};
-static const char *togglevol[] = {"/home/peter/.scripts/voladj", "toggle"};
+static const char *incvol[] = {"/home/peter/.scripts/voladj", "up", NULL};
+static const char *decvol[] = {"/home/peter/.scripts/voladj", "down", NULL};
+static const char *mutevol[] = {"/home/peter/.scripts/voladj", "mute", NULL};
+static const char *togglevol[] = {"/home/peter/.scripts/voladj", "toggle",
+                                  NULL};
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
