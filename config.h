@@ -18,8 +18,8 @@ static char color7[] = "#FFFFFF"; // Foreground
 static char *colors[][3] = {
     /*               fg           bg           border   */
     [SchemeNorm] = {color7, color0, color0},
-    [SchemeSel] = {color7, color3, color7},
-    [SchemeStatus] = {color7, color3, color0},
+    [SchemeSel] = {color0, color3, color7},
+    [SchemeStatus] = {color0, color3, color0},
 };
 
 /* tagging */
