@@ -2,7 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx = 2; /* border pixel of windows */
-static const unsigned int gappx = 6;    /* gaps between windows */
+static const unsigned int gappx = 12;    /* gaps between windows */
 static const unsigned int snap = 32;    /* snap pixel */
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
@@ -23,14 +23,14 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = {"", "", "", "", "", "", "", "", ""};
+static const char *tags[] = {"", "", "", "" };
 
 static const Rule rules[] = {
     /* class            instance    title       tags mask     isfloating monitor */
     {"Gimp"        , NULL , NULL , 0 , 1 , 0} ,
     {"TeamSpeak 3" , NULL , NULL , 0 , 1 , 1} ,
     {"KeePassXC"   , NULL , NULL , 0 , 1 , 0} ,
-    {"Thunar"      , NULL , NULL , 0 , 1 , 1} ,
+    {"Thunar"      , NULL , NULL , 0 , 1 , 0} ,
     {"Pavucontrol" , NULL , NULL , 0 , 1 , 0} ,
 };
 
@@ -41,9 +41,9 @@ static const int resizehints =
     1; /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
-    {"", tile}, /* first entry is default */
-    {"", NULL}, /* no layout function means floating behavior */
-    {"ﱡ", monocle}
+    {"[]=", tile}, /* first entry is default */
+    {"<><", NULL}, /* no layout function means floating behavior */
+    {"[]", monocle}
 };
 
 /* key definitions */
