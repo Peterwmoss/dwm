@@ -63,9 +63,9 @@ static const Layout layouts[] = {
 /* commands */
 static const char *runcmd[]     = { "dmenu_run", NULL};
 static const char *seachcmd[]   = { "/home/peter/.scripts/search", NULL};
-static const char *spotifycmd[] = { "alacritty", "-e", "spt", NULL};
-static const char *termcmd[]    = { "alacritty", NULL};
-static const char *rangercmd[]  = { "alacritty", "-e", "ranger", NULL};
+static const char *spotifycmd[] = { "st", "-e", "spt", NULL};
+static const char *termcmd[]    = { "st", NULL};
+static const char *rangercmd[]  = { "st", "-e", "ranger", NULL};
 static const char *sysmenu[]    = { "/home/peter/.scripts/sysmenu", NULL};
 
 /* Brightness */
