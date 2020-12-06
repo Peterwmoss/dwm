@@ -170,7 +170,8 @@ struct Monitor {
   int by;             /* bar geometry */
   int mx, my, mw, mh; /* screen size */
   int wx, wy, ww, wh; /* window area  */
-  int gappx;          /* gaps between windows */
+  int gappx_outer;          /* gaps between windows */
+  int gappx_inner;          /* gaps between windows */
   unsigned int seltags;
   unsigned int sellt;
   unsigned int tagset[2];
@@ -256,7 +257,8 @@ static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
 static void fullscreen(const Arg *arg);
-static void setgaps(const Arg *arg);
+static void set_gaps_outer(const Arg *arg);
+static void set_gaps_inner(const Arg *arg);
 static void setlayout(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
@@ -672,7 +674,8 @@ Monitor *createmon(void) {
   m->nmaster = nmaster;
   m->showbar = showbar;
   m->topbar = topbar;
-  m->gappx = gappx;
+  m->gappx_inner = gappx_inner;
+  m->gappx_outer = gappx_outer;
   m->lt[0] = &layouts[0];
   m->lt[1] = &layouts[1 % LENGTH(layouts)];
   strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
@@ -1214,8 +1217,8 @@ void movemouse(const Arg *arg) {
 }
 
 Client *nexttiled(Client *c) {
-  for (; c && (c->isfloating || !ISVISIBLE(c)); c = c->next)
-    ;
+  while (c && (c->isfloating || !ISVISIBLE(c)))
+      c = c->next;
   return c;
 }
 
@@ -1516,11 +1519,19 @@ void togglebar(const Arg *arg) {
   arrange(selmon);
 }
 
-void setgaps(const Arg *arg) {
-  if ((arg->i == 0) || (selmon->gappx + arg->i < 0))
-    selmon->gappx = 0;
+void set_gaps_outer(const Arg *arg) {
+  if ((arg->i == 0) || (selmon->gappx_outer + arg->i < 0))
+    selmon->gappx_outer = 0;
   else
-    selmon->gappx += arg->i;
+    selmon->gappx_outer += arg->i;
+  arrange(selmon);
+}
+
+void set_gaps_inner(const Arg *arg) {
+  if ((arg->i == 0) || (selmon->gappx_inner + arg->i < 0))
+    selmon->gappx_inner = 0;
+  else
+    selmon->gappx_inner += arg->i;
   arrange(selmon);
 }
 
@@ -1637,8 +1648,7 @@ void showhide(Client *c) {
   if (ISVISIBLE(c)) {
     /* show clients top down */
     XMoveWindow(dpy, c->win, c->x, c->y);
-    if ((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) &&
-        !c->isfullscreen)
+    if ((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) && !c->isfullscreen)
       resize(c, c->x, c->y, c->w, c->h, 0);
     showhide(c->snext);
   } else {
@@ -1681,33 +1691,49 @@ void tagmon(const Arg *arg) {
   sendmon(selmon->sel, dirtomon(arg->i));
 }
 
-void tile(Monitor *m) {
-  unsigned int i, n, h, mw, my, ty;
-  Client *c;
+void tile(Monitor *monitor) {
+  unsigned int num_windows, height, master_width, cur_master_y, cur_stack_y;
+  Client *client = nexttiled(monitor->clients);
 
-  for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++)
-    ;
-  if (n == 0)
+  num_windows = 0;
+  while (client) {
+    client = nexttiled(client->next);
+    num_windows++;
+  }
+  if (num_windows == 0)
     return;
 
-  if (n > m->nmaster)
-    mw = m->nmaster ? m->ww * m->mfact : 0;
+  if (num_windows > monitor->nmaster)
+    master_width = monitor->nmaster ? monitor->ww * monitor->mfact : 0;
   else
-    mw = m->ww - m->gappx;
-  for (i = 0, my = ty = m->gappx, c = nexttiled(m->clients); c;
-       c = nexttiled(c->next), i++)
-    if (i < m->nmaster) {
-      h = (m->wh - my) / (MIN(n, m->nmaster) - i) - m->gappx;
-      resize(c, m->wx + m->gappx, m->wy + my, mw - (2 * c->bw) - m->gappx,
-             h - (2 * c->bw), 0);
-      if (my + HEIGHT(c) < m->wh)
-        my += HEIGHT(c) + m->gappx;
+    master_width = monitor->ww - monitor->gappx_outer;
+
+  cur_master_y = cur_stack_y = monitor->gappx_outer;
+  client = nexttiled(monitor->clients);
+  for (short i = 0; client; client = nexttiled(client->next), i++)
+    if (i < monitor->nmaster) {
+      unsigned short num_master_windows = MIN(num_windows, monitor->nmaster) - i;
+      height = (monitor->wh - cur_master_y) / num_master_windows - monitor->gappx_outer;
+      resize(
+          client,
+          monitor->wx + monitor->gappx_outer, // x
+          monitor->wy + cur_master_y, // y
+          master_width - (client->bw << 1) - monitor->gappx_outer, // width
+          height - (client->bw << 1), // height
+          0);
+      if (cur_master_y + HEIGHT(client) < monitor->wh)
+        cur_master_y += HEIGHT(client) + monitor->gappx_outer;
     } else {
-      h = (m->wh - ty) / (n - i) - m->gappx;
-      resize(c, m->wx + mw + m->gappx, m->wy + ty,
-             m->ww - mw - (2 * c->bw) - 2 * m->gappx, h - (2 * c->bw), 0);
-      if (ty + HEIGHT(c) < m->wh)
-        ty += HEIGHT(c) + m->gappx;
+      height = (monitor->wh - cur_stack_y) / (num_windows - i) - monitor->gappx_outer;
+      resize(
+          client, 
+          monitor->wx + master_width + monitor->gappx_inner, // x
+          monitor->wy + cur_stack_y, // y
+          monitor->ww - master_width - (client->bw << 1) - monitor->gappx_inner - monitor->gappx_outer,  // width
+          height - (client->bw << 1), // height
+          0);
+      if (cur_stack_y + HEIGHT(client) < monitor->wh)
+        cur_stack_y += HEIGHT(client) + monitor->gappx_inner;
     }
 }
 
