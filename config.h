@@ -64,28 +64,28 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *runcmd[]     = { "dmenu_run", NULL};
-static const char *seachcmd[]   = { "/home/peter/.scripts/search", NULL};
+static const char *seachcmd[]   = { "/home/peter/.local/scripts/search", NULL};
 static const char *spotifycmd[] = { "st", "-e", "spt", NULL};
 static const char *termcmd[]    = { "st", NULL};
 static const char *rangercmd[]  = { "st", "-e", "ranger", NULL};
-static const char *sysmenu[]    = { "/home/peter/.scripts/sysmenu", NULL};
+static const char *sysmenu[]    = { "/home/peter/.local/scripts/sysmenu", NULL};
 
 /* Brightness */
-static const char *brupcmd[]    = { "/home/peter/.scripts/backlightadj", "up", NULL};
-static const char *brdowncmd[]  = { "/home/peter/.scripts/backlightadj", "down", NULL};
+static const char *brupcmd[]    = { "/home/peter/.local/scripts/backlightadj", "up", NULL};
+static const char *brdowncmd[]  = { "/home/peter/.local/scripts/backlightadj", "down", NULL};
 
 /* Volume */
-static const char *incvol[]     = { "/home/peter/.scripts/voladj", "up", NULL};
-static const char *decvol[]     = { "/home/peter/.scripts/voladj", "down", NULL};
-static const char *mutevol[]    = { "/home/peter/.scripts/voladj", "mute", NULL};
-static const char *togglevol[]  = { "/home/peter/.scripts/voladj", "toggle", NULL};
+static const char *incvol[]     = { "/home/peter/.local/scripts/voladj", "up", NULL};
+static const char *decvol[]     = { "/home/peter/.local/scripts/voladj", "down", NULL};
+static const char *mutevol[]    = { "/home/peter/.local/scripts/voladj", "mute", NULL};
+static const char *togglevol[]  = { "/home/peter/.local/scripts/voladj", "toggle", NULL};
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY               , XK_d      , spawn          , {.v = runcmd}}                                      ,
     {MODKEY | ShiftMask   , XK_d      , spawn          , {.v = seachcmd}}                                    ,
     {MODKEY               , XK_p      , spawn          , {.v = sysmenu}}                                     ,
-    {MODKEY               , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.scripts/ss")}        ,
+    {MODKEY               , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.local/scripts/ss")}  ,
     {MODKEY | ShiftMask   , XK_s      , spawn          , SHCMD("sleep 0.2; scrot -s -e 'mv $f ~/pictures'")} ,
     {MODKEY | ControlMask , XK_s      , spawn          , {.v = spotifycmd}}                                  ,
     {MODKEY               , XK_Return , spawn          , {.v = termcmd}}                                     ,
