@@ -1709,6 +1709,7 @@ void tile(Monitor *monitor) {
     master_width = monitor->ww - monitor->gappx_outer;
 
   cur_master_y = cur_stack_y = monitor->gappx_outer;
+
   client = nexttiled(monitor->clients);
   for (short i = 0; client; client = nexttiled(client->next), i++)
     if (i < monitor->nmaster) {
@@ -1722,7 +1723,7 @@ void tile(Monitor *monitor) {
           height - (client->bw << 1), // height
           0);
       if (cur_master_y + HEIGHT(client) < monitor->wh)
-        cur_master_y += HEIGHT(client) + monitor->gappx_outer;
+        cur_master_y += HEIGHT(client) + monitor->gappx_inner;
     } else {
       height = (monitor->wh - cur_stack_y) / (num_windows - i) - monitor->gappx_outer;
       resize(

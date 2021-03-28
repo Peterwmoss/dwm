@@ -63,8 +63,9 @@ static const Layout layouts[] = {
   }
 
 /* commands */
-static const char *runcmd[]     = { "dmenu_run", NULL};
+static const char *runcmd[]     = { "dmenu_run", "-i", "-m", "0", "-p", "Run", NULL};
 static const char *seachcmd[]   = { "/home/peter/.scripts/search", NULL};
+static const char *webcmd[]   = { "/home/peter/.scripts/web", NULL};
 static const char *spotifycmd[] = { "st", "-e", "spt", NULL};
 static const char *termcmd[]    = { "st", NULL};
 static const char *rangercmd[]  = { "st", "-e", "ranger", NULL};
@@ -84,6 +85,7 @@ static Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY               , XK_d      , spawn          , {.v = runcmd}}                                      ,
     {MODKEY | ShiftMask   , XK_d      , spawn          , {.v = seachcmd}}                                    ,
+    {MODKEY | ControlMask , XK_d      , spawn          , {.v = webcmd}}                                      ,
     {MODKEY               , XK_p      , spawn          , {.v = sysmenu}}                                     ,
     {MODKEY               , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.scripts/ss")}        ,
     {MODKEY | ShiftMask   , XK_s      , spawn          , SHCMD("sleep 0.2; scrot -s -e 'mv $f ~/pictures'")} ,
