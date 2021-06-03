@@ -24,16 +24,15 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = {"", "", "", "" };
+static const char *tags[] = {"", "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
     /* class            instance    title       tags mask     isfloating monitor */
     {"Gimp"             , NULL , NULL , 0 , 1 , 0} ,
-    {"TeamSpeak 3"      , NULL , NULL , 0 , 1 , 1} ,
+    {"TeamSpeak 3"      , NULL , NULL , 0 , 1 , 0} ,
     {"KeePassXC"        , NULL , NULL , 0 , 1 , 0} ,
     {"Thunar"           , NULL , NULL , 0 , 1 , 0} ,
     {"Pavucontrol"      , NULL , NULL , 0 , 1 , 0} ,
-    {"jetbrains-studio" , NULL , NULL , 0 , 1 , 0} ,
 };
 
 /* layout(s) */
