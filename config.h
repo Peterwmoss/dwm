@@ -33,6 +33,7 @@ static const Rule rules[] = {
     {"KeePassXC"        , NULL , NULL , 0 , 1 , 0} ,
     {"Thunar"           , NULL , NULL , 0 , 1 , 0} ,
     {"Pavucontrol"      , NULL , NULL , 0 , 1 , 0} ,
+    {"Steam"            , NULL , NULL , 0 , 1 , 0} ,
 };
 
 /* layout(s) */
@@ -64,9 +65,6 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *runcmd[]     = { "dmenu_run", "-i", "-m", "0", "-p", "Run", NULL};
-static const char *seachcmd[]   = { "/home/peter/.scripts/search", NULL};
-static const char *webcmd[]   = { "/home/peter/.scripts/web", NULL};
-static const char *spotifycmd[] = { "st", "-e", "spt", NULL};
 static const char *termcmd[]    = { "st", NULL};
 static const char *rangercmd[]  = { "st", "-e", "ranger", NULL};
 static const char *sysmenu[]    = { "/home/peter/.local/scripts/sysmenu", NULL};
@@ -84,12 +82,10 @@ static const char *togglevol[]  = { "/home/peter/.local/scripts/voladj", "toggle
 static Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY               , XK_d      , spawn          , {.v = runcmd}}                                      ,
-    {MODKEY | ShiftMask   , XK_d      , spawn          , {.v = seachcmd}}                                    ,
-    {MODKEY | ControlMask , XK_d      , spawn          , {.v = webcmd}}                                      ,
     {MODKEY               , XK_p      , spawn          , {.v = sysmenu}}                                     ,
     {MODKEY               , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.local/scripts/ss")}  ,
-    {MODKEY | ShiftMask   , XK_s      , spawn          , SHCMD("sleep 0.2; scrot -s -e 'mv $f ~/pictures'")} ,
-    {MODKEY | ControlMask , XK_s      , spawn          , {.v = spotifycmd}}                                  ,
+    {MODKEY | ShiftMask   , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.local/scripts/screenshot -f")} ,
+    {MODKEY | ControlMask , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.local/scripts/screenshot -w")} ,
     {MODKEY               , XK_Return , spawn          , {.v = termcmd}}                                     ,
     {MODKEY               , XK_b      , spawn          , {.v = brupcmd}}                                     ,
     {MODKEY | ShiftMask   , XK_b      , spawn          , {.v = brdowncmd}}                                   ,
@@ -131,8 +127,7 @@ static Key keys[] = {
     TAGKEYS(XK_5, 4),
     TAGKEYS(XK_6, 5),
     TAGKEYS(XK_7, 6),
-    TAGKEYS(XK_8, 7),
-    TAGKEYS(XK_9, 8)};
+    TAGKEYS(XK_8, 7)};
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
