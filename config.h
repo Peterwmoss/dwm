@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx = 2; /* border pixel of windows */
+static const unsigned int borderpx = 3; /* border pixel of windows */
 static const unsigned int gappx_outer = 12;    /* gaps between windows */
 static const unsigned int gappx_inner = 12;    /* gaps between windows */
 static const unsigned int snap = 32;    /* snap pixel */
@@ -19,8 +19,8 @@ static char color7[] = "#FFFFFF"; // Foreground
 static char *colors[][3] = {
     /*               fg           bg           border   */
     [SchemeNorm]   = {color7, color0, color0},
-    [SchemeSel]    = {color0, color3, color7},
-    [SchemeStatus] = {color0, color3, color0},
+    [SchemeSel]    = {color0, color2, color2},
+    [SchemeStatus] = {color0, color2, color0},
 };
 
 /* tagging */
