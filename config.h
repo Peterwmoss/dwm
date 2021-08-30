@@ -2,9 +2,8 @@
 
 /* appearance */
 static const unsigned int borderpx = 3; /* border pixel of windows */
-static const unsigned int gappx_outer = 12;    /* gaps between windows */
-static const unsigned int gappx_inner = 12;    /* gaps between windows */
-static const unsigned int snap = 32;    /* snap pixel */
+static const unsigned int gappx = 8;    /* gaps between windows */
+static const unsigned int snap = 8;    /* snap pixel */
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
 static const char *fonts[] = {"Hack Nerd Font Mono:size=10"};
@@ -117,10 +116,8 @@ static Key keys[] = {
     {MODKEY               , XK_period , focusmon       , {.i = +1}}                                          ,
     {MODKEY | ShiftMask   , XK_comma  , tagmon         , {.i = -1}}                                          ,
     {MODKEY | ShiftMask   , XK_period , tagmon         , {.i = +1}}                                          ,
-    {MODKEY               , XK_z      , set_gaps_inner , {.i = -5}}                                          ,
-    {MODKEY               , XK_x      , set_gaps_inner , {.i = +5}}                                          ,
-    {MODKEY | ShiftMask   , XK_z      , set_gaps_outer , {.i = -5}}                                          ,
-    {MODKEY | ShiftMask   , XK_x      , set_gaps_outer , {.i = +5}}                                          ,
+    {MODKEY               , XK_z      , set_gaps       , {.i = -4}}                                          ,
+    {MODKEY               , XK_x      , set_gaps       , {.i = +4}}                                          ,
     {MODKEY | ShiftMask   , XK_e      , quit           , {0}}                                                ,
     TAGKEYS(XK_1, 0),
     TAGKEYS(XK_2, 1),

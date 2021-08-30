@@ -170,8 +170,7 @@ struct Monitor {
   int by;             /* bar geometry */
   int mx, my, mw, mh; /* screen size */
   int wx, wy, ww, wh; /* window area  */
-  int gappx_outer;          /* gaps between windows */
-  int gappx_inner;          /* gaps between windows */
+  int gappx;          /* gaps between windows */
   unsigned int seltags;
   unsigned int sellt;
   unsigned int tagset[2];
@@ -257,8 +256,7 @@ static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
 static void fullscreen(const Arg *arg);
-static void set_gaps_outer(const Arg *arg);
-static void set_gaps_inner(const Arg *arg);
+static void set_gaps(const Arg *arg);
 static void setlayout(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
@@ -675,8 +673,7 @@ Monitor *createmon(void) {
   m->nmaster = nmaster;
   m->showbar = showbar;
   m->topbar = topbar;
-  m->gappx_inner = gappx_inner;
-  m->gappx_outer = gappx_outer;
+  m->gappx = gappx;
   m->lt[0] = &layouts[0];
   m->lt[1] = &layouts[1 % LENGTH(layouts)];
   strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
@@ -1520,19 +1517,11 @@ void togglebar(const Arg *arg) {
   arrange(selmon);
 }
 
-void set_gaps_outer(const Arg *arg) {
-  if ((arg->i == 0) || (selmon->gappx_outer + arg->i < 0))
-    selmon->gappx_outer = 0;
+void set_gaps(const Arg *arg) {
+  if ((arg->i == 0) || (selmon->gappx + arg->i < 0))
+    selmon->gappx = 0;
   else
-    selmon->gappx_outer += arg->i;
-  arrange(selmon);
-}
-
-void set_gaps_inner(const Arg *arg) {
-  if ((arg->i == 0) || (selmon->gappx_inner + arg->i < 0))
-    selmon->gappx_inner = 0;
-  else
-    selmon->gappx_inner += arg->i;
+    selmon->gappx += arg->i;
   arrange(selmon);
 }
 
@@ -1707,35 +1696,35 @@ void tile(Monitor *monitor) {
   if (num_windows > monitor->nmaster)
     master_width = monitor->nmaster ? monitor->ww * monitor->mfact : 0;
   else
-    master_width = monitor->ww - monitor->gappx_outer;
+    master_width = monitor->ww - monitor->gappx;
 
-  cur_master_y = cur_stack_y = monitor->gappx_outer;
+  cur_master_y = cur_stack_y = monitor->gappx;
 
   client = nexttiled(monitor->clients);
   for (short i = 0; client; client = nexttiled(client->next), i++)
     if (i < monitor->nmaster) {
       unsigned short num_master_windows = MIN(num_windows, monitor->nmaster) - i;
-      height = (monitor->wh - cur_master_y) / num_master_windows - monitor->gappx_outer;
+      height = (monitor->wh - cur_master_y) / num_master_windows - monitor->gappx;
       resize(
           client,
-          monitor->wx + monitor->gappx_outer, // x
+          monitor->wx + monitor->gappx, // x
           monitor->wy + cur_master_y, // y
-          master_width - (client->bw << 1) - monitor->gappx_outer, // width
+          master_width - (client->bw << 1) - monitor->gappx, // width
           height - (client->bw << 1), // height
           0);
       if (cur_master_y + HEIGHT(client) < monitor->wh)
-        cur_master_y += HEIGHT(client) + monitor->gappx_inner;
+        cur_master_y += HEIGHT(client) + monitor->gappx;
     } else {
-      height = (monitor->wh - cur_stack_y) / (num_windows - i) - monitor->gappx_outer;
+      height = (monitor->wh - cur_stack_y) / (num_windows - i) - monitor->gappx;
       resize(
           client, 
-          monitor->wx + master_width + monitor->gappx_inner, // x
+          monitor->wx + master_width + monitor->gappx, // x
           monitor->wy + cur_stack_y, // y
-          monitor->ww - master_width - (client->bw << 1) - monitor->gappx_inner - monitor->gappx_outer,  // width
+          monitor->ww - master_width - (client->bw << 1) - (monitor->gappx * 2),  // width
           height - (client->bw << 1), // height
           0);
       if (cur_stack_y + HEIGHT(client) < monitor->wh)
-        cur_stack_y += HEIGHT(client) + monitor->gappx_inner;
+        cur_stack_y += HEIGHT(client) + monitor->gappx;
     }
 }
 
