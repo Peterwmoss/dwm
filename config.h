@@ -67,6 +67,7 @@ static const Layout layouts[] = {
 static const char *runcmd[]     = { "dmenu_run", "-i", "-m", "0", "-p", "Run", NULL};
 static const char *termcmd[]    = { "st", NULL};
 static const char *rangercmd[]  = { "st", "-e", "ranger", NULL};
+static const char *calccmd[]  = { "/home/peter/.local/scripts/calculate", NULL};
 static const char *sysmenu[]    = { "/home/peter/.local/scripts/sysmenu", NULL};
 
 /* Brightness */
@@ -86,6 +87,7 @@ static Key keys[] = {
     {MODKEY               , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.local/scripts/ss")}  ,
     {MODKEY | ShiftMask   , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.local/scripts/screenshot -f")} ,
     {MODKEY | ControlMask , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.local/scripts/screenshot -w")} ,
+    {MODKEY | ShiftMask   , XK_c      , spawn          , {.v = calccmd}} ,
     {MODKEY               , XK_Return , spawn          , {.v = termcmd}}                                     ,
     {MODKEY               , XK_b      , spawn          , {.v = brupcmd}}                                     ,
     {MODKEY | ShiftMask   , XK_b      , spawn          , {.v = brdowncmd}}                                   ,
