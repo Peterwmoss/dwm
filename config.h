@@ -68,10 +68,15 @@ static const char *termcmd[]    = { "st", NULL};
 static const char *rangercmd[]  = { "st", "-e", "ranger", NULL};
 static const char *calccmd[]  = { "/home/peter/.local/scripts/calculate", NULL};
 static const char *sysmenu[]    = { "/home/peter/.local/scripts/sysmenu", NULL};
+static const char *lockcmd[]    = { "i3lock-fancy-multimonitor", "-b=0x8", NULL}; // Maximum blur
 
 /* Brightness */
 static const char *brupcmd[]    = { "/home/peter/.local/scripts/backlightadj", "up", NULL};
 static const char *brdowncmd[]  = { "/home/peter/.local/scripts/backlightadj", "down", NULL};
+
+/* Keyboard backlight */
+static const char *kbup[]  = { "doas", "--", "rogauracore", "brightness", "1", NULL};
+static const char *kbdown[]  = { "doas", "--", "rogauracore", "brightness", "0", NULL};
 
 /* Volume */
 static const char *incvol[]     = { "/home/peter/.local/scripts/voladj", "up", NULL};
@@ -87,6 +92,7 @@ static Key keys[] = {
     {MODKEY | ShiftMask   , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.local/scripts/screenshot -f")} ,
     {MODKEY | ControlMask , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.local/scripts/screenshot -w")} ,
     {MODKEY | ShiftMask   , XK_c      , spawn          , {.v = calccmd}} ,
+    {MODKEY | ShiftMask   , XK_l      , spawn          , {.v = lockcmd}} ,
     {MODKEY               , XK_Return , spawn          , {.v = termcmd}}                                     ,
     {MODKEY               , XK_b      , spawn          , {.v = brupcmd}}                                     ,
     {MODKEY | ShiftMask   , XK_b      , spawn          , {.v = brdowncmd}}                                   ,
@@ -119,6 +125,8 @@ static Key keys[] = {
     {MODKEY               , XK_z      , set_gaps       , {.i = -4}}                                          ,
     {MODKEY               , XK_x      , set_gaps       , {.i = +4}}                                          ,
     {MODKEY | ShiftMask   , XK_e      , quit           , {0}}                                                ,
+    {MODKEY               , XK_F3     , spawn          , {.v = kbup}}                                        ,
+    {MODKEY               , XK_F2     , spawn          , {.v = kbdown}}                                        ,
     TAGKEYS(XK_1, 0),
     TAGKEYS(XK_2, 1),
     TAGKEYS(XK_3, 2),
