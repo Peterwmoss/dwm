@@ -23,29 +23,26 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = {"", "", "", "", "", "", "", "" };
+static const char *tags[] = {"", "", "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
     /* class            instance    title       tags mask     isfloating monitor */
-    {"Gimp"             , NULL , NULL , 0 , 1 , 0} ,
     {"TeamSpeak 3"      , NULL , NULL , 0 , 1 , 0} ,
-    {"KeePassXC"        , NULL , NULL , 0 , 1 , 0} ,
     {"Thunar"           , NULL , NULL , 0 , 1 , 0} ,
     {"Pavucontrol"      , NULL , NULL , 0 , 1 , 0} ,
-    {"Steam"            , NULL , NULL , 0 , 1 , 0} ,
+    {"Nemo"             , NULL , NULL , 0 , 1 , 0} ,
 };
 
 /* layout(s) */
 static const float mfact = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster = 1;    /* number of clients in master area */
-static const int resizehints =
-    1; /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 1; /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
     {"[]=", tile}, /* first entry is default */
     {"<><", NULL}, /* no layout function means floating behavior */
     {"[]", monocle},
-    {"|M|", centeredmaster }
+    {"|M|", centeredmaster },
 };
 
 /* key definitions */
@@ -63,7 +60,8 @@ static const Layout layouts[] = {
   }
 
 /* commands */
-static const char *runcmd[]     = { "dmenu_run", "-i", "-m", "0", "-p", "Run", NULL};
+static const char *druncmd[]     = { "rofi", "-show", "drun", "-show-icons", "-font", "\"hack 10\"", NULL};
+static const char *runcmd[]     = { "rofi", "-show", "run", "-show-icons", "-font", "\"hack 10\"", NULL};
 static const char *termcmd[]    = { "st", NULL};
 static const char *rangercmd[]  = { "st", "-e", "ranger", NULL};
 static const char *calccmd[]  = { "/home/peter/.local/scripts/calculate", NULL};
@@ -71,8 +69,8 @@ static const char *sysmenu[]    = { "/home/peter/.local/scripts/sysmenu", NULL};
 static const char *lockcmd[]    = { "i3lock-fancy-multimonitor", "-b=0x8", NULL}; // Maximum blur
 
 /* Brightness */
-static const char *brupcmd[]    = { "/home/peter/.local/scripts/backlightadj", "up", NULL};
-static const char *brdowncmd[]  = { "/home/peter/.local/scripts/backlightadj", "down", NULL};
+static const char *brupcmd[]    = { "doas", "--", "light", "-A", "10", NULL};
+static const char *brdowncmd[]  = { "doas", "--", "light", "-U", "10", NULL};
 
 /* Keyboard backlight */
 static const char *kbup[]  = { "doas", "--", "rogauracore", "brightness", "1", NULL};
@@ -84,13 +82,16 @@ static const char *decvol[]     = { "/home/peter/.local/scripts/voladj", "down",
 static const char *mutevol[]    = { "/home/peter/.local/scripts/voladj", "mute", NULL};
 static const char *togglevol[]  = { "/home/peter/.local/scripts/voladj", "toggle", NULL};
 
+static const char *sscmd[]  = { "flameshot", "gui", "-p", "/home/peter/pictures/screenshots", NULL};
+static const char *ssclipcmd[]  = { "flameshot", "gui", "--clipboard", NULL};
+
 static Key keys[] = {
     /* modifier                     key        function        argument */
-    {MODKEY               , XK_d      , spawn          , {.v = runcmd}}                                      ,
+    {MODKEY               , XK_d      , spawn          , {.v = druncmd}}                                      ,
+    {MODKEY | ShiftMask   , XK_d      , spawn          , {.v = runcmd}}                                      ,
     {MODKEY               , XK_p      , spawn          , {.v = sysmenu}}                                     ,
-    {MODKEY               , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.local/scripts/ss")}  ,
-    {MODKEY | ShiftMask   , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.local/scripts/screenshot -f")} ,
-    {MODKEY | ControlMask , XK_s      , spawn          , SHCMD("sleep 0.2; /home/peter/.local/scripts/screenshot -w")} ,
+    {MODKEY               , XK_s      , spawn          , {.v = ssclipcmd}}                                     ,
+    {MODKEY | ShiftMask   , XK_s      , spawn          , {.v = sscmd}}                                      ,
     {MODKEY | ShiftMask   , XK_c      , spawn          , {.v = calccmd}} ,
     {MODKEY | ShiftMask   , XK_l      , spawn          , {.v = lockcmd}} ,
     {MODKEY               , XK_Return , spawn          , {.v = termcmd}}                                     ,
@@ -134,7 +135,8 @@ static Key keys[] = {
     TAGKEYS(XK_5, 4),
     TAGKEYS(XK_6, 5),
     TAGKEYS(XK_7, 6),
-    TAGKEYS(XK_8, 7)};
+    TAGKEYS(XK_8, 7),
+    TAGKEYS(XK_9, 8)};
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
