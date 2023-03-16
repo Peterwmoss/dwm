@@ -55,7 +55,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -131,8 +131,8 @@ static const Key keys[] = {
   { MODKEY,                       XK_period, focusmon,       {.i = +1}},
   { MODKEY | ShiftMask,           XK_comma,  tagmon,         {.i = -1}},
   { MODKEY | ShiftMask,           XK_period, tagmon,         {.i = +1}},
-  { MODKEY,                       XK_z,      setgaps,       {.i = -4}},
-  { MODKEY,                       XK_x,      setgaps,       {.i = +4}},
+  { MODKEY,                       XK_z,      setgaps,        {.i = -4}},
+  { MODKEY,                       XK_x,      setgaps,        {.i = +4}},
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
   { MODKEY | ShiftMask,           XK_e,      quit,           {0}},
   { MODKEY,                       XK_F2,     spawn,          {.v = kbdown}},
