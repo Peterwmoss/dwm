@@ -31,6 +31,8 @@ static const Rule rules[] = {
     {"Thunar"           , NULL , NULL , 0 , 1 , 0} ,
     {"Pavucontrol"      , NULL , NULL , 0 , 1 , 0} ,
     {"Nemo"             , NULL , NULL , 0 , 1 , 0} ,
+    {"Steam"            , NULL , NULL , 0 , 0 , 0} ,
+    {"kcalc"            , NULL , NULL , 0 , 1 , 0} ,
 };
 
 /* layout(s) */
