@@ -37,6 +37,7 @@ static const Rule rules[] = {
   {"Thunar"     , NULL      , NULL      , 0           , 1          , 0} ,
   {"Pavucontrol", NULL      , NULL      , 0           , 1          , 0} ,
   {"Nemo"       , NULL      , NULL      , 0           , 1          , 0} ,
+  {"jetbrains-idea", NULL, NULL, 0, 0, 0},
 };
 
 /* layout(s) */
